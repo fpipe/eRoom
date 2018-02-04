@@ -1,0 +1,40 @@
+body{
+    background-color: white;
+    /*background-color: #6693F5;*/
+    /*background-color: lightgray !important;*/
+    /*background: linear-gradient(#5bc0de, #428bca);*/
+}
+
+.navbar{
+    padding-top: 10px;
+    /*background-color: #5bc0de;*/
+    background: linear-gradient(to bottom,#5bc0de, #d2f4ed);
+}
+
+footer{
+    padding-top: 10px;
+    /*background-color: #5bc0de;*/
+    background: linear-gradient(to top, #5bc0de, #d2f4ed);
+    border-top: 1px solid lightgray;
+    width: 100%;
+}
+
+.nav li{
+    margin: 7px;
+    font-size: 15px;
+}
+
+.nav li a:hover{
+    background-color: #5bc0de;
+}
+.main-container{
+    margin-left:30px;
+    padding-bottom: 30px;
+}
+
+#send{
+    margin-top: 24px;
+    margin-left: 5px;
+}
+
+

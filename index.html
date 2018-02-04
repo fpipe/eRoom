@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Room for connecting peers">
+    <meta name="author" content="Filip filip.simonovski97@gmail.com">
+
+    <link rel="icon" type="image/png" href="img/logo.png" />
+
+    <title>eRoom</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #profileDiv{
+            background-color: #5bc0de ;
+            color: black;
+            border-radius: 25px;
+            padding: 20px ;
+            width: 100%;
+            height: 100%;
+        }
+
+        #profileDiv:hover{
+            background-color: #428bca;
+            color: white;
+        }
+    </style>
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <!--NAVIGATION-->
+    <div class="row">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <img class="navbar-brand pull-left" src="img/logo.png" style="width: 130px;height: 65px;">
+            <ul class="nav nav-pills pull-right list-unstyled">
+                <li><a href="home.html">Home</a></li>
+                <li class="active"><a data-toggle="pill" href="#createOrJoinRoom">Create or Join Room</a></li>
+                <li><a data-toggle="pill" href="#room" id="roomPill">Room</a></li>
+                <li><a data-toggle="pill" href="#login" id="loginPill">Login</a></li>
+            </ul>
+
+        </div>
+    </nav>
+    </div>
+
+    <!--MAIN CONTAINER-->
+    <div class="container main-container tab-content">
+
+        <!--CREATE OR JOIN ROOM-->
+        <div id="createOrJoinRoom" class="tab-pane fade in active">
+            <!--Connect contaner-->
+            <h3 class="text-center">Create or Join room</h3>
+            <br/>
+            <!--Frist row-->
+            <!--<div class="row">-->
+
+            <!--</div>-->
+            <!--/.Frist row-->
+
+            <!--Second row-->
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-5">
+                    <h3>Here you can create room by clicking Create, or join to someones other room by clicking Join.</h3><br/>
+                    <h4>To create room share your generated ID with the other stranger and when he connect just paste the other stranger ID in the box and click Join</h4>
+                    <h4>To connect with the other stranger just paste his ID in the stranger's box, your ID will be generated, click Join and sent him your ID</h4>
+                </div>
+
+                <div class="col-sm-offset-2 col-sm-4">
+                    <div id="connectionContainer" >
+                        <form class="form-group">
+                            <label>Your ID:</label><br/>
+                            <input class="form-control" type="text" id="yourId">
+                        </form>
+                        <button class="btn btn-primary" id="create">Create</button>
+                        <form class="form-group">
+                            <br>
+                            <label>Stranger ID:</label><br/>
+                            <input class="form-control" type="text" id="otherId">
+                        </form>
+                        <button class="btn btn-success" id="connect">Join</button>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <!--/.Second row-->
+        </div>
+
+
+
+        <!--ROOM-->
+        <div id="room" class="tab-pane fade" >
+        <!--First row-->
+        <div class="row" >
+            <h3 class="text-center">Room</h3>
+            <!--Video container-->
+            <div class="col-sm-8 col-xs-12" id="cameraContainer">
+
+                <video id="videoCamera" style="width: 100%;height: 100%;"></video>
+
+            </div>
+            <!-- /.Video container-->
+
+            <!--Message container-->
+            <div class="col-sm-4 col-xs-12" id="chatContainer">
+                <form class="form-group">
+                    <label>Messages</label>
+                    <pre id="messages" class="pre-scrollable" style="height: 350px"></pre>
+                </form>
+                <div class="row">
+                    <div class="col-sm-10 col-xs-10">
+                        <label>Enter message</label><br/>
+                        <input class="form-control pull-left" id="yourMessage">
+                    </div>
+                    <div class="col-sm-2 col-xs-2">
+                        <button class="btn btn-primary pull-right" id="send">Send</button>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.Message container-->
+            <br/>
+        </div>
+        <!-- /.First row-->
+        </div>
+        <br/>
+
+        <!--PROFILE-->
+        <div id="login" class="tab-pane fade">
+
+            <!--PROFILE CONTAINER-->
+            <div class="row text-center b" id="profile" style="display: none;">
+                <div class="col-sm-offset-5 col-sm-4">
+                    <h3 class="text-center">Profile</h3><br/>
+                    <div id="profileDiv">
+                        <a id="facebookLink" target="_blank">
+                            <img class="img img-responsive img-circle center-block" alt="fb-photo" id="facebookPhoto" >
+                        </a>
+                        <h3 id="facebookName">Name</h3>
+                    </div>
+                    <br/>
+                    <div class="btn btn-primary" id="logout" onclick="logoutUser()">Logout</div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+
+
+            <!--LOGIN CONTAINER-->
+            <div class="row text-center" id="loginDiv">
+                <div class="col-sm-offset-5 col-sm-4">
+                    <h3 class="text-center">Please login</h3>
+                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"  id="facebookLoginButon" width="500px" heigh="300px">
+                    </fb:login-button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--/.Main container-->
+    <!-- FOOTER -->
+    <!--<footer>-->
+        <!--<div class="row text-center">-->
+            <!--<div class="col-md-12">-->
+                <!--<p>Copyright &copy; <b>Filip Simonovski</b></p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.row &ndash;&gt;-->
+    <!--</footer>-->
+
+    <script>
+
+        document.getElementById('create').addEventListener('click',function () {
+            var url = window.location.href;
+                if(!(url.indexOf("host") >=0)){
+                    url+="?#host";
+                    window.location.href = url;
+                }
+        });
+
+        var currentUsername = null;
+
+        function loginUser() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me?fields=picture.type(large),first_name,link,last_name', function(response) {
+                console.log('Successful login for: ' + response.first_name);
+                var firstName = response.first_name;
+                var lastName = response.last_name;
+                var pictureUrl = response.picture.data.url;
+                var link = response.link;
+                $('#facebookName').text(firstName + " " + lastName);
+                $('#facebookPhoto').attr("src", pictureUrl);
+                $('#facebookLink').attr("href",link);
+                $('#loginDiv').hide();
+                $('#profile').show();
+                $('#loginPill').text(firstName);
+                currentUsername = firstName + " " + lastName;
+                localStorage.setItem("currentUsername", currentUsername);
+            });
+        }
+
+
+        //LOGUT the user
+        function logoutUser(){
+            FB.logout(function(){
+                console.log("logout");
+                $('#profile').hide();
+                $('#loginDiv').show();
+                $('#loginPill').text("Login");
+                currentUsername = "Other";
+                localStorage.setItem("currentUsername", currentUsername);
+//                var storageUser = localStorage.getItem("currentUsername");
+//                console.log(storageUser);
+            });
+        }
+
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                loginUser();
+            } else {
+                // The person is not logged into your app or we are unable to tell.
+                console.log("Please log in");
+
+            }
+        }
+
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '149398795857846',
+                cookie     : true,  // enable cookies to allow the server to access
+                                    // the session
+                xfbml      : true,  // parse social plugins on this page
+                version    : 'v2.8' // use graph api version 2.8
+            });
+
+            // Now that we've initialized the JavaScript SDK, we call
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!--My scripts-->
+<script src="index.js" charset="utf-8"></script>
+
+
+</body>
+</html>
